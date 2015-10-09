@@ -1,8 +1,3 @@
-//#define BOOST_TEST_MAIN
-//#define BOOST_TEST_DYN_LINK
-//#include <boost/test/unit_test.hpp>
-//#include <boost/test/included/unit_test.hpp>
-
 #include <boost/spirit/include/qi_grammar.hpp>
 #include <boost/spirit/include/qi_rule.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -55,19 +50,6 @@ struct AdditionGrammar : grammar<Iterator>
     rule<Iterator, std::vector<char>()> addition;
 
 };
-
-//BOOST_AUTO_TEST_CASE(EventName)
-//{
-//    PrintGrammar grammar;
-
-//    variables['a'] = 9;
-
-//    std::string given("PRINT a");
-
-//    bool success = boost::spirit::qi::parse(given.begin(), given.end(), grammar);
-
-//    BOOST_CHECK(success);
-//}
 
 int main()
 {
