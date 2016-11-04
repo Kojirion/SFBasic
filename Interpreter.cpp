@@ -16,7 +16,7 @@ struct Interpreter
     std::map<char, int> variables;
 };
 
-
+//TODO: a quit grammar
 
 int main(){
     PrintGrammar printGrammar;
@@ -26,10 +26,13 @@ int main(){
     bool running(true);
 
     std::string line;
+    using boost::spirit::qi::parse;
 
     while(running){
+        std::cout << "basic> " << std::flush;
         std::getline(std::cin, line);
-        std::cout << line << std::endl;
+        auto r = parse(line.begin(), line.end(), inputGrammar);
+        if (!r)
+            std::cout << "Error" << std::endl;
     }
-
 }
