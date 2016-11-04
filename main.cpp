@@ -21,34 +21,31 @@ void Add(std::vector<char> results){
     variables[results[0]] = variables[results[1]] + variables[results[2]];
 }
 
-struct PrintGrammar : grammar<Iterator>
+struct PrintGrammar : grammar<Iterator, char()>
 {
     PrintGrammar(): base_type(start){
-        start = "PRINT " >> char_[Print];
+        start = "PRINT " >> char_;
     }
 
-    rule<Iterator> start;
+    rule<Iterator, char()> start;
 };
 
-struct InputGrammar : grammar<Iterator>
+struct InputGrammar : grammar<Iterator, char()>
 {
     InputGrammar(): base_type(start){
-        start = "INPUT " >> char_[Input];
+        start = "INPUT " >> char_;
     }
 
-    rule<Iterator> start;
+    rule<Iterator, char()> start;
 };
 
-struct AdditionGrammar : grammar<Iterator>
+struct AdditionGrammar : grammar<Iterator, std::vector<char>()>
 {
     AdditionGrammar() : base_type(start){
-        addition = char_ >> " = " >> char_ >> " + " >> char_;
-        start = addition[Add];
+        start = char_ >> " = " >> char_ >> " + " >> char_;
     }
 
-    rule<Iterator> start;
-    rule<Iterator, std::vector<char>()> addition;
-
+    rule<Iterator, std::vector<char>()> start;
 };
 
 int main()
@@ -67,8 +64,8 @@ int main()
 
     bool success;
 
-    success = boost::spirit::qi::parse(line_1.begin(), line_1.end(), inputGrammar);
-    success = boost::spirit::qi::parse(line_2.begin(), line_2.end(), inputGrammar);
-    success = boost::spirit::qi::parse(line_3.begin(), line_2.end(), additionGrammar);
-    success = boost::spirit::qi::parse(line_4.begin(), line_2.end(), printGrammar);
+    success = boost::spirit::qi::parse(line_1.begin(), line_1.end(), inputGrammar[Input]);
+    success = boost::spirit::qi::parse(line_2.begin(), line_2.end(), inputGrammar[Input]);
+    success = boost::spirit::qi::parse(line_3.begin(), line_2.end(), additionGrammar[Add]);
+    success = boost::spirit::qi::parse(line_4.begin(), line_2.end(), printGrammar[Print]);
 }
