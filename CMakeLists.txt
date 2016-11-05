@@ -35,7 +35,13 @@ if (BUILD_TESTS)
     add_executable(unit_tests ${GRAMMARS} ${TEST_SRCS})
 endif()
 
-add_executable(sfbasic-interpreter ${GRAMMARS} ${SRCS} Interpreter.cpp)
+set (INTERPRETER_SRCS
+        Interpreter/Interpreter.hpp
+        Interpreter/Interpreter.cpp
+        Interpreter/main.cpp
+    )
+
+add_executable(sfbasic-interpreter ${GRAMMARS} ${INTERPRETER_SRCS})
 target_link_libraries(sfbasic-interpreter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
 add_executable(sfbasic-converter ${GRAMMARS} ${SRCS} Converter.cpp)
@@ -44,7 +50,7 @@ target_link_libraries(sfbasic-converter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 add_executable(sfbasic-formatter ${GRAMMARS} ${SRCS} Formatter/main.cpp)
 target_link_libraries(sfbasic-formatter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
-add_subdirectory(Interpreter)
+add_subdirectory(Interpreter/gui)
 
 install(TARGETS sfbasic-converter DESTINATION .)
 install(FILES sample.bas sample2.bas sample3.bas DESTINATION .)

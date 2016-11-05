@@ -10,6 +10,6 @@ set(SRCS
     main.cpp
 )
 
-add_executable(interpreter-gui ${SRCS})
+add_executable(sfbasic-gui ${SRCS})
 
-target_link_libraries(interpreter-gui Qt5::Widgets)
+target_link_libraries(sfbasic-gui Qt5::Widgets)
