@@ -17,7 +17,7 @@ using Iterator = std::string::iterator;
 struct PrintGrammar : grammar<Iterator, char()>
 {
     PrintGrammar(): base_type(start){
-        start = "PRINT " >> char_;
+        start = no_case["PRINT "] >> char_;
     }
 
     rule<Iterator, char()> start;

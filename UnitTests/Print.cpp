@@ -8,7 +8,11 @@ BOOST_AUTO_TEST_CASE(Print)
 
     std::vector<std::string> validLines = {
         "PRINT a",
-        "PRINT b"
+        "PRINT b",
+        "print a",
+        "prInT a",
+        "Print a",
+        "  Print a"
     };
 
     using boost::spirit::qi::phrase_parse;
