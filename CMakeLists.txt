@@ -47,5 +47,5 @@ target_link_libraries(sfbasic-formatter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 add_subdirectory(Interpreter)
 
 install(TARGETS sfbasic-converter DESTINATION .)
-install(FILES sample.bas sample2.bas DESTINATION .)
+install(FILES sample.bas sample2.bas sample3.bas DESTINATION .)
 install(FILES sfbasic-compile DESTINATION . PERMISSIONS OWNER_READ OWNER_EXECUTE)

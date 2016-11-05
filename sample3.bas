@@ -1,0 +1,3 @@
+DO
+    PRINT c
+LOOP
