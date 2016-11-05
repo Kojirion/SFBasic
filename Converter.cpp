@@ -17,19 +17,20 @@ struct Converter
     {
         output << "#include <iostream>\n"
                << "#include <map>\n\n"
+               << "typedef char Variable;\n\n"
                << "int main(){\n"
-               << "std::map<char, int> variables;\n";
+               << "std::map<Variable, int> variables;\n";
     }
 
-    void Print(char c){
-        output << "std::cout << " << variable(c) << " << std::endl;\n";
+    void Print(Variable v){
+        output << "std::cout << " << variable(v) << " << std::endl;\n";
     }
 
-    void Input(char c){
-        output << "std::cin >> " << variable(c) << ";\n";
+    void Input(Variable v){
+        output << "std::cin >> " << variable(v) << ";\n";
     }
 
-    void Add(std::vector<char> results){
+    void Add(std::vector<Variable> results){
         output << variable(results[0]) << " = " << variable(results[1]) << " + "
                << variable(results[2]) << ";\n";
     }
@@ -38,9 +39,9 @@ struct Converter
         output << "}" << std::endl;
     }
 
-    std::string variable(char c) const {
+    std::string variable(Variable v) const {
         std::string s("variables['");
-        s.push_back(c);
+        s.push_back(v);
         return s + "']";
     }
 

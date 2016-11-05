@@ -12,14 +12,14 @@
 
 struct Interpreter
 {
-    void Print(char a){std::cout << variables[a] << '\n';}
+    void Print(Variable v){std::cout << variables[v] << '\n';}
 
-    void Input(char a){
-        std::cin >> variables[a];
+    void Input(Variable v){
+        std::cin >> variables[v];
         std::cin.ignore(); //TOFIX: Yet this is unecessary and even wrong if interpreting from a stream
     }
 
-    void Add(std::vector<char> results){
+    void Add(std::vector<Variable> results){
         variables[results[0]] = variables[results[1]] + variables[results[2]];
     }
 
@@ -42,7 +42,7 @@ struct Interpreter
     InputGrammar inputGrammar;
     AdditionGrammar additionGrammar;
 
-    std::map<char, int> variables;
+    std::map<Variable, int> variables;
 };
 
 //TODO: a quit grammar
