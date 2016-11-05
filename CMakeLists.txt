@@ -18,4 +18,7 @@ add_executable(unit_tests ${HDRS} ${SRCS} UnitTests.cpp)
 add_executable(interpreter ${HDRS} ${SRCS} Interpreter.cpp)
 target_link_libraries(interpreter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
+add_executable(converter ${HDRS} ${SRCS} Converter.cpp)
+target_link_libraries(converter ${Boost_PROGRAM_OPTIONS_LIBRARY})
+
 add_subdirectory(Interpreter)

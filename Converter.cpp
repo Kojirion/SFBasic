@@ -5,23 +5,33 @@
 #include <iostream>
 #include <functional>
 
-struct Interpreter
+struct Converter
 {
-    void Print(char a){std::cout << variables[a] << '\n';}
+    Converter(std::ostream& os):
+    output(os)
+    {
+        output << "#include <iostream>\n"
+               << "#include <map>\n\n"
+               << "int main(){\n"
+               << "std::map<char, int> variables;\n";
+    }
+
+    void Print(char a){
+        output << "std::cout << variables[" << a <<"] << std::endl;";
+    }
 
     void Input(char a){
-        std::cin >> variables[a];
-        std::cin.ignore(); //TOFIX: Yet this is unecessary and even wrong if interpreting from file
+        output << "std::cin >> variables[" << a << "];";
     }
 
     void Add(std::vector<char> results){
-        variables[results[0]] = variables[results[1]] + variables[results[2]];
+        output << "variables[" << results[0] << "] = variables[" << results[1]
+               << "] + variables[" << results[2] << "];";
     }
 
-    std::map<char, int> variables;
+    std::ostream& output;
 };
 
-//TODO: a quit grammar
 
 int main(int ac, char* av[]){
 
@@ -32,8 +42,8 @@ int main(int ac, char* av[]){
         desc.add_options()
                 ("help", "Display this information")
                 ("version", "Display version information")
-                ("text", po::value<std::string>(), "Text to interpret")
-                ("file", po::value<std::string>(), "File to interpret")
+                ("text", po::value<std::string>(), "Text to convert")
+                ("file", po::value<std::string>(), "File to convert")
                 ;
 
         po::positional_options_description p;
@@ -64,21 +74,21 @@ int main(int ac, char* av[]){
     InputGrammar inputGrammar;
     AdditionGrammar additionGrammar;
 
-    Interpreter interpreter;
+    Converter converter(std::cout);
 
     bool running(true);
 
     std::string line;
     using boost::spirit::qi::parse;
 
-    while(running){
-        std::cout << "basic> " << std::flush;
-        std::getline(std::cin, line);
-        auto it = line.begin();
-        using std::placeholders::_1;
-        auto r = parse(it, line.end(), inputGrammar[std::bind(&Interpreter::Input, &interpreter, _1)]);
-        if (!r){
-            std::cout << "Error at \n" << std::string(it, line.end()) << std::endl;
-        }
-    }
+//    while(running){
+//        std::cout << "basic> " << std::flush;
+//        std::getline(std::cin, line);
+//        auto it = line.begin();
+//        using std::placeholders::_1;
+//        auto r = parse(it, line.end(), inputGrammar[std::bind(&Interpreter::Input, &interpreter, _1)]);
+//        if (!r){
+//            std::cout << "Error at \n" << std::string(it, line.end()) << std::endl;
+//        }
+//    }
 }
