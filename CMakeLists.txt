@@ -14,7 +14,12 @@ set(HDRS
 #    main.cpp
 #)
 
-add_executable(unit_tests ${HDRS} ${SRCS} UnitTests.cpp)
+set(BUILD_TESTS false CACHE BOOL "Build tests")
+
+if (BUILD_TESTS)
+    add_subdirectory(UnitTests)
+endif()
+
 add_executable(sfbasic-interpreter ${HDRS} ${SRCS} Interpreter.cpp)
 target_link_libraries(sfbasic-interpreter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
