@@ -89,12 +89,17 @@ int main(int ac, char* av[]){
         if (vm.count("file")){
             auto filename = vm["file"].as<std::string>();
             std::ifstream file(filename);
+            namespace qi = boost::spirit::qi;
+
             for (std::string line; std::getline(file, line);){
                 auto it = line.begin();
                 using std::placeholders::_1;
-                auto r = parse(it, line.end(), inputGrammar[std::bind(&Converter::Input, &converter, _1)] |
-                                               printGrammar[std::bind(&Converter::Print, &converter, _1)] |
-                                               additionGrammar[std::bind(&Converter::Add, &converter, _1)]);
+                auto r = qi::phrase_parse(it, line.end(),
+                                      inputGrammar[std::bind(&Converter::Input, &converter, _1)] |
+                                      printGrammar[std::bind(&Converter::Print, &converter, _1)] |
+                                      additionGrammar[std::bind(&Converter::Add, &converter, _1)],
+                        qi::space);
+
                 if (!r){
                     std::cerr << "Error at \n" << std::string(it, line.end()) << std::endl;
                 }

@@ -20,13 +20,16 @@ struct Interpreter
     }
 
     void interpretLine(std::string& line){
-        using boost::spirit::qi::parse;
+        namespace qi = boost::spirit::qi;
 
         auto it = line.begin();
         using std::placeholders::_1;
-        auto r = parse(it, line.end(), inputGrammar[std::bind(&Interpreter::Input, this, _1)] |
-                                       printGrammar[std::bind(&Interpreter::Print, this, _1)] |
-                                       additionGrammar[std::bind(&Interpreter::Add, this, _1)]);
+        auto r = qi::phrase_parse(it, line.end(),
+                              inputGrammar[std::bind(&Interpreter::Input, this, _1)] |
+                              printGrammar[std::bind(&Interpreter::Print, this, _1)] |
+                              additionGrammar[std::bind(&Interpreter::Add, this, _1)],
+                qi::space);
+
         if (!r){
             std::cout << "Error at \n" << std::string(it, line.end()) << std::endl;
         }
