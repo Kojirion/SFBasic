@@ -1,0 +1,3 @@
+#!/bin/sh
+./sfbasic-converter $1
+g++ a.cpp

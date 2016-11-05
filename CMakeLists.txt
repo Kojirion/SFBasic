@@ -15,12 +15,14 @@ set(HDRS
 #)
 
 add_executable(unit_tests ${HDRS} ${SRCS} UnitTests.cpp)
-add_executable(interpreter ${HDRS} ${SRCS} Interpreter.cpp)
-target_link_libraries(interpreter ${Boost_PROGRAM_OPTIONS_LIBRARY})
+add_executable(sfbasic-interpreter ${HDRS} ${SRCS} Interpreter.cpp)
+target_link_libraries(sfbasic-interpreter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
-add_executable(converter ${HDRS} ${SRCS} Converter.cpp)
-target_link_libraries(converter ${Boost_PROGRAM_OPTIONS_LIBRARY})
+add_executable(sfbasic-converter ${HDRS} ${SRCS} Converter.cpp)
+target_link_libraries(sfbasic-converter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
 add_subdirectory(Interpreter)
 
+install(TARGETS sfbasic-converter DESTINATION .)
 install(FILES sample.bas DESTINATION .)
+install(FILES sfbasic-compile DESTINATION . PERMISSIONS OWNER_READ OWNER_EXECUTE)
