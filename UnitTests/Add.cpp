@@ -7,7 +7,9 @@ BOOST_AUTO_TEST_CASE(Add)
     AdditionGrammar grammar;
 
     std::vector<std::string> validLines = {
-        "s = a + b"
+        "s = a + b",
+        "s=a+b",
+        "s   = a     +b"
     };
 
     using boost::spirit::qi::phrase_parse;

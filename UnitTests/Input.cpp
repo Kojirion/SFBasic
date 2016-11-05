@@ -13,6 +13,7 @@ BOOST_AUTO_TEST_CASE(Input)
         "iNpuT a",
         "Input a",
         " INPUT a"
+        "Input  a"
     };
 
     using boost::spirit::qi::phrase_parse;

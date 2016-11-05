@@ -13,6 +13,7 @@ BOOST_AUTO_TEST_CASE(Print)
         "prInT a",
         "Print a",
         "  Print a"
+        "Print        a"
     };
 
     using boost::spirit::qi::phrase_parse;
