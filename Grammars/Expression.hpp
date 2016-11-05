@@ -3,10 +3,14 @@
 #include "ArbitrarySpace.hpp"
 #include "../Variable.hpp"
 
-struct AdditionGrammar : qi::grammar<Iterator, std::vector<Variable>()>
+namespace Grammars{
+
+struct Addition : qi::grammar<Iterator, std::vector<Variable>()>
 {
-    AdditionGrammar();
+    Addition();
 
     ArbitrarySpace arbitrarySpace;
     qi::rule<Iterator, std::vector<Variable>()> start;
 };
+
+}

@@ -83,9 +83,9 @@ int main(int ac, char* av[]){
             return 0;
         }
 
-        PrintGrammar printGrammar;
-        InputGrammar inputGrammar;
-        AdditionGrammar additionGrammar;
+        Grammars::Print printGrammar;
+        Grammars::Input inputGrammar;
+        Grammars::Addition additionGrammar;
 
         std::ofstream output("a.cpp");
 

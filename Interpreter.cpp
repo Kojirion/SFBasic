@@ -38,9 +38,9 @@ struct Interpreter
         }
     }
 
-    PrintGrammar printGrammar;
-    InputGrammar inputGrammar;
-    AdditionGrammar additionGrammar;
+    Grammars::Print printGrammar;
+    Grammars::Input inputGrammar;
+    Grammars::Addition additionGrammar;
 
     std::map<Variable, int> variables;
 };

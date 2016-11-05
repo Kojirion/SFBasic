@@ -1,10 +1,10 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/spirit/include/qi.hpp>
-#include "../Grammars.hpp"
+#include "../Grammars/Print.hpp"
 
 BOOST_AUTO_TEST_CASE(Print)
 {
-    PrintGrammar grammar;
+    Grammars::Print grammar;
 
     std::vector<std::string> validLines = {
         "PRINT a",

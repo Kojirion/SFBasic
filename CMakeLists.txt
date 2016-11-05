@@ -25,7 +25,14 @@ set(GRAMMARS
 set(BUILD_TESTS false CACHE BOOL "Build tests")
 
 if (BUILD_TESTS)
-    add_subdirectory(UnitTests)
+    set (TEST_SRCS
+            UnitTests/Input.cpp
+            UnitTests/Print.cpp
+            UnitTests/Add.cpp
+            UnitTests/main.cpp
+        )
+
+    add_executable(unit_tests ${GRAMMARS} ${TEST_SRCS})
 endif()
 
 add_executable(sfbasic-interpreter ${GRAMMARS} ${SRCS} Interpreter.cpp)

@@ -1,10 +1,10 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/spirit/include/qi.hpp>
-#include "../Grammars.hpp"
+#include "../Grammars/Input.hpp"
 
 BOOST_AUTO_TEST_CASE(Input)
 {
-    InputGrammar grammar;
+    Grammars::Input grammar;
 
     std::vector<std::string> validLines = {
         "INPUT a",

@@ -3,10 +3,14 @@
 #include "ArbitrarySpace.hpp"
 #include "../Variable.hpp"
 
-struct InputGrammar : qi::grammar<Iterator, Variable()>
+namespace Grammars{
+
+struct Input : qi::grammar<Iterator, Variable()>
 {
-    InputGrammar();
+    Input();
 
     ArbitrarySpace arbitrarySpace;
     qi::rule<Iterator, Variable()> start;
 };
+
+}
