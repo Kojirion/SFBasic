@@ -4,7 +4,7 @@
 
 BOOST_AUTO_TEST_CASE(Input)
 {
-    InputGrammar inputGrammar;
+    InputGrammar grammar;
 
     std::vector<std::string> validLines = {
         "INPUT a",
@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(Input)
     using boost::spirit::qi::space;
 
     for (auto& line : validLines)
-        BOOST_CHECK(phrase_parse(line.begin(), line.end(), inputGrammar, space));
+        BOOST_CHECK(phrase_parse(line.begin(), line.end(), grammar, space));
 
     std::vector<std::string> invalidLines = {
         "INPUTa",
@@ -28,5 +28,5 @@ BOOST_AUTO_TEST_CASE(Input)
     };
 
     for (auto& line : invalidLines)
-        BOOST_CHECK(!phrase_parse(line.begin(), line.end(), inputGrammar, space));
+        BOOST_CHECK(!phrase_parse(line.begin(), line.end(), grammar, space));
 }

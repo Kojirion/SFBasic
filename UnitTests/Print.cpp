@@ -20,4 +20,13 @@ BOOST_AUTO_TEST_CASE(Print)
 
     for (auto& line : validLines)
         BOOST_CHECK(phrase_parse(line.begin(), line.end(), grammar, space));
+
+    std::vector<std::string> invalidLines = {
+        "PRINTa",
+        "fPRINta",
+        "PRINT"
+    };
+
+    for (auto& line : invalidLines)
+        BOOST_CHECK(!phrase_parse(line.begin(), line.end(), grammar, space));
 }
