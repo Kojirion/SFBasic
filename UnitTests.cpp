@@ -4,6 +4,24 @@
 #include <boost/test/included/unit_test.hpp>
 #include "Grammars.hpp"
 
+BOOST_AUTO_TEST_CASE(Input)
+{
+    InputGrammar inputGrammar;
+
+    std::vector<std::string> lines = {
+        "INPUT a",
+        "INPUT b",
+        "input a",
+        "iNpuT a",
+        "Input a"
+    };
+
+    using boost::spirit::qi::parse;
+
+    for (auto& line : lines)
+        BOOST_CHECK(parse(line.begin(), line.end(), inputGrammar));
+}
+
 BOOST_AUTO_TEST_CASE(InputOutput)
 {
     PrintGrammar printGrammar;
