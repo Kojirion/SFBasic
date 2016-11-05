@@ -1,4 +1,4 @@
-set (SRCS
+set (GRAMMARS
         Input.cpp
         Print.cpp
         Add.cpp

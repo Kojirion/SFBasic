@@ -6,8 +6,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 find_package(Boost COMPONENTS program_options REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-set(HDRS
-    Grammars.hpp
+set(GRAMMARS
+        Grammars/Grammars.hpp
+        Grammars/Input.hpp
+        Grammars/Print.hpp
+        Grammars/Expression.hpp
+        Grammars/Input.cpp
+        Grammars/Print.cpp
+        Grammars/ArbitrarySpace.hpp
+        Grammars/ArbitrarySpace.cpp
+        Grammars/Expression.cpp
 )
 
 #set(SRCS
@@ -20,10 +28,10 @@ if (BUILD_TESTS)
     add_subdirectory(UnitTests)
 endif()
 
-add_executable(sfbasic-interpreter ${HDRS} ${SRCS} Interpreter.cpp)
+add_executable(sfbasic-interpreter ${GRAMMARS} ${SRCS} Interpreter.cpp)
 target_link_libraries(sfbasic-interpreter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
-add_executable(sfbasic-converter ${HDRS} ${SRCS} Converter.cpp)
+add_executable(sfbasic-converter ${GRAMMARS} ${SRCS} Converter.cpp)
 target_link_libraries(sfbasic-converter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
 add_subdirectory(Interpreter)

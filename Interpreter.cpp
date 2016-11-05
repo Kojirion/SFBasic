@@ -1,10 +1,14 @@
 #include <boost/program_options.hpp>
-#include "Grammars.hpp"
+#include "Grammars/Input.hpp"
+#include "Grammars/Print.hpp"
+#include "Grammars/Expression.hpp"
 #include <map>
 #include <vector>
 #include <iostream>
 #include <functional>
 #include <fstream>
+#include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/phoenix.hpp>
 
 struct Interpreter
 {
