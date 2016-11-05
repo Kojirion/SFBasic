@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <functional>
+#include <fstream>
 
 struct Converter
 {
@@ -17,16 +18,20 @@ struct Converter
     }
 
     void Print(char a){
-        output << "std::cout << variables[" << a <<"] << std::endl;";
+        output << "std::cout << variables[" << a <<"] << std::endl;\n";
     }
 
     void Input(char a){
-        output << "std::cin >> variables[" << a << "];";
+        output << "std::cin >> variables[" << a << "];\n";
     }
 
     void Add(std::vector<char> results){
         output << "variables[" << results[0] << "] = variables[" << results[1]
-               << "] + variables[" << results[2] << "];";
+               << "] + variables[" << results[2] << "];\n";
+    }
+
+    void finish(){
+        output << "}" << std::endl;
     }
 
     std::ostream& output;
@@ -47,6 +52,7 @@ int main(int ac, char* av[]){
                 ;
 
         po::positional_options_description p;
+        p.add("file", 1);
 
         po::variables_map vm;
         po::store(po::command_line_parser(ac, av).options(desc).positional(p).run(), vm);
@@ -65,21 +71,40 @@ int main(int ac, char* av[]){
                       << "There is NO WARRANTY, to the extent permitted by law." << std::endl;
             return 0;
         }
+
+        PrintGrammar printGrammar;
+        InputGrammar inputGrammar;
+        AdditionGrammar additionGrammar;
+
+        Converter converter(std::cout);
+
+        if (vm.count("file")){
+            auto filename = vm["file"].as<std::string>();
+            std::ifstream file(filename);
+            for (std::string line; std::getline(file, line);){
+                auto it = line.begin();
+                using std::placeholders::_1;
+                auto r = parse(it, line.end(), inputGrammar[std::bind(&Converter::Input, &converter, _1)] |
+                                               printGrammar[std::bind(&Converter::Print, &converter, _1)] |
+                                               additionGrammar[std::bind(&Converter::Add, &converter, _1)]);
+                if (!r){
+                    std::cerr << "Error at \n" << std::string(it, line.end()) << std::endl;
+                }
+            }
+            converter.finish();
+            return 0;
+        }
     } catch(std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;
     }
 
-    PrintGrammar printGrammar;
-    InputGrammar inputGrammar;
-    AdditionGrammar additionGrammar;
 
-    Converter converter(std::cout);
 
-    bool running(true);
+//    bool running(true);
 
-    std::string line;
-    using boost::spirit::qi::parse;
+//    std::string line;
+//    using boost::spirit::qi::parse;
 
 //    while(running){
 //        std::cout << "basic> " << std::flush;
