@@ -22,3 +22,5 @@ add_executable(converter ${HDRS} ${SRCS} Converter.cpp)
 target_link_libraries(converter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
 add_subdirectory(Interpreter)
+
+install(FILES sample.bas DESTINATION .)

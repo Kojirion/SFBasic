@@ -37,6 +37,7 @@ int main(int ac, char* av[]){
                 ;
 
         po::positional_options_description p;
+        p.add("file", 1);
 
         po::variables_map vm;
         po::store(po::command_line_parser(ac, av).options(desc).positional(p).run(), vm);
@@ -54,6 +55,11 @@ int main(int ac, char* av[]){
                       << "This is free software: you are free to change and redistribute it.\n"
                       << "There is NO WARRANTY, to the extent permitted by law." << std::endl;
             return 0;
+        }
+
+        if (vm.count("file")){
+            auto input = vm["file"].as<std::string>();
+            std::cout << "File to open " << input << std::endl;
         }
     } catch(std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
