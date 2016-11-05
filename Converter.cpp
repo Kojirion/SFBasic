@@ -17,21 +17,27 @@ struct Converter
                << "std::map<char, int> variables;\n";
     }
 
-    void Print(char a){
-        output << "std::cout << variables['" << a <<"'] << std::endl;\n";
+    void Print(char c){
+        output << "std::cout << " << variable(c) << " << std::endl;\n";
     }
 
-    void Input(char a){
-        output << "std::cin >> variables['" << a << "'];\n";
+    void Input(char c){
+        output << "std::cin >> " << variable(c) << ";\n";
     }
 
     void Add(std::vector<char> results){
-        output << "variables['" << results[0] << "'] = variables['" << results[1]
-               << "'] + variables['" << results[2] << "'];\n";
+        output << variable(results[0]) << " = " << variable(results[1]) << " + "
+               << variable(results[2]) << ";\n";
     }
 
     void finish(){
         output << "}" << std::endl;
+    }
+
+    std::string variable(char c) const {
+        std::string s("variables['");
+        s.push_back(c);
+        return s + "']";
     }
 
     std::ostream& output;
