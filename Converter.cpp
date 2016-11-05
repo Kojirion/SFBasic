@@ -18,16 +18,16 @@ struct Converter
     }
 
     void Print(char a){
-        output << "std::cout << variables[" << a <<"] << std::endl;\n";
+        output << "std::cout << variables['" << a <<"'] << std::endl;\n";
     }
 
     void Input(char a){
-        output << "std::cin >> variables[" << a << "];\n";
+        output << "std::cin >> variables['" << a << "'];\n";
     }
 
     void Add(std::vector<char> results){
-        output << "variables[" << results[0] << "] = variables[" << results[1]
-               << "] + variables[" << results[2] << "];\n";
+        output << "variables['" << results[0] << "'] = variables['" << results[1]
+               << "'] + variables['" << results[2] << "'];\n";
     }
 
     void finish(){
@@ -76,7 +76,9 @@ int main(int ac, char* av[]){
         InputGrammar inputGrammar;
         AdditionGrammar additionGrammar;
 
-        Converter converter(std::cout);
+        std::ofstream output("a.cpp");
+
+        Converter converter(output);
 
         if (vm.count("file")){
             auto filename = vm["file"].as<std::string>();
