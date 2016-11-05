@@ -38,6 +38,20 @@ struct Interpreter
         }
     }
 
+    void interpret(std::istream& is, bool displayPrompt){
+        if (displayPrompt)
+            std::cout << "basic> " << std::flush;
+
+        for (std::string line; std::getline(is, line);){
+            interpretLine(line);
+            if (displayPrompt)
+                std::cout << "basic> " << std::flush;
+        }
+
+        if (displayPrompt)
+            std::cout << std::endl;
+    }
+
     Grammars::Print printGrammar;
     Grammars::Input inputGrammar;
     Grammars::Addition additionGrammar;
@@ -86,27 +100,14 @@ int main(int ac, char* av[]){
 
         if (vm.count("file")){
             auto filename = vm["file"].as<std::string>();
-            //std::cout << "Interpreting " << filename << std::endl; //TODO: make this optional with a verbose flag
-            std::ifstream file(filename);
-            //TODO: interpret stream instead of line by line
-            //int lineCount = 1;
-            for (std::string line; std::getline(file, line);){
-                //std::cout << lineCount++ << ": " << line << std::endl;
-                interpreter.interpretLine(line);
-            }
-            //std::cout << "End of interpratation\n";
+            std::ifstream file(filename);            
+            interpreter.interpret(file, false);
             return 0;
         }
 
-        bool running(true);
+        //if no arguments given, then interpret from stdin
+        interpreter.interpret(std::cin, true);
 
-        std::string line;
-
-        while(running){
-            std::cout << "basic> " << std::flush;
-            std::getline(std::cin, line);
-            interpreter.interpretLine(line);
-        }
     } catch(std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;
