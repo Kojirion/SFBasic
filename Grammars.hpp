@@ -2,12 +2,14 @@
 #include <boost/spirit/include/qi_rule.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
+#include <boost/spirit/include/qi_no_case.hpp>
 
 using boost::spirit::qi::grammar;
 using boost::spirit::qi::rule;
 
 using boost::spirit::qi::int_;
 using boost::spirit::qi::char_;
+using boost::spirit::qi::no_case;
 
 using Iterator = std::string::iterator;
 
@@ -24,7 +26,7 @@ struct PrintGrammar : grammar<Iterator, char()>
 struct InputGrammar : grammar<Iterator, char()>
 {
     InputGrammar(): base_type(start){
-        start = "INPUT " >> char_;
+        start = no_case["INPUT "] >> char_;
     }
 
     rule<Iterator, char()> start;
