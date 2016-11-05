@@ -82,7 +82,9 @@ int main(int ac, char* av[]){
         std::getline(std::cin, line);
         auto it = line.begin();
         using std::placeholders::_1;
-        auto r = parse(it, line.end(), inputGrammar[std::bind(&Interpreter::Input, &interpreter, _1)]);
+        auto r = parse(it, line.end(), inputGrammar[std::bind(&Interpreter::Input, &interpreter, _1)] |
+                                       printGrammar[std::bind(&Interpreter::Print, &interpreter, _1)] |
+                                       additionGrammar[std::bind(&Interpreter::Add, &interpreter, _1)]);
         if (!r){
             std::cout << "Error at \n" << std::string(it, line.end()) << std::endl;
         }
