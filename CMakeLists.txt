@@ -41,8 +41,11 @@ target_link_libraries(sfbasic-interpreter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 add_executable(sfbasic-converter ${GRAMMARS} ${SRCS} Converter.cpp)
 target_link_libraries(sfbasic-converter ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
+add_executable(sfbasic-formatter ${GRAMMARS} ${SRCS} Formatter/main.cpp)
+target_link_libraries(sfbasic-formatter ${Boost_PROGRAM_OPTIONS_LIBRARY})
+
 add_subdirectory(Interpreter)
 
 install(TARGETS sfbasic-converter DESTINATION .)
-install(FILES sample.bas DESTINATION .)
+install(FILES sample.bas sample2.bas DESTINATION .)
 install(FILES sfbasic-compile DESTINATION . PERMISSIONS OWNER_READ OWNER_EXECUTE)
