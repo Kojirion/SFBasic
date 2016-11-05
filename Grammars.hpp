@@ -15,33 +15,41 @@ using boost::spirit::qi::space;
 
 using Iterator = std::string::iterator;
 
+struct ArbitrarySpace : grammar<Iterator>
+{
+    ArbitrarySpace(): base_type(start){
+        start = *space;
+    }
 
+    rule<Iterator> start;
+};
 
 struct PrintGrammar : grammar<Iterator, char()>
 {
     PrintGrammar(): base_type(start){
-        start = no_case["PRINT "] >> char_;
+        start = arbitrarySpace >> no_case["PRINT "] >> arbitrarySpace >> char_;
     }
 
+    ArbitrarySpace arbitrarySpace;
     rule<Iterator, char()> start;
 };
 
 struct InputGrammar : grammar<Iterator, char()>
 {
     InputGrammar(): base_type(start){
-        start = no_case["INPUT "] >> char_;
+        start = arbitrarySpace >> no_case["INPUT "] >> arbitrarySpace >> char_;
     }
 
+    ArbitrarySpace arbitrarySpace;
     rule<Iterator, char()> start;
 };
 
 struct AdditionGrammar : grammar<Iterator, std::vector<char>()>
 {
     AdditionGrammar() : base_type(start){
-        arbitrarySpace = *space;
         start = char_ >> arbitrarySpace >> "=" >> arbitrarySpace >> char_ >> arbitrarySpace >> "+" >> arbitrarySpace >> char_;
     }
 
-    rule<Iterator> arbitrarySpace;
+    ArbitrarySpace arbitrarySpace;
     rule<Iterator, std::vector<char>()> start;
 };

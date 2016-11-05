@@ -12,15 +12,14 @@ BOOST_AUTO_TEST_CASE(Input)
         "input a",
         "iNpuT a",
         "Input a",
-        " INPUT a"
+        " INPUT a",
         "Input  a"
     };
 
-    using boost::spirit::qi::phrase_parse;
-    using boost::spirit::qi::space;
+    using boost::spirit::qi::parse;
 
     for (auto& line : validLines)
-        BOOST_CHECK(phrase_parse(line.begin(), line.end(), grammar, space));
+        BOOST_CHECK(parse(line.begin(), line.end(), grammar));
 
     std::vector<std::string> invalidLines = {
         "INPUTa",
@@ -29,5 +28,5 @@ BOOST_AUTO_TEST_CASE(Input)
     };
 
     for (auto& line : invalidLines)
-        BOOST_CHECK(!phrase_parse(line.begin(), line.end(), grammar, space));
+        BOOST_CHECK(!parse(line.begin(), line.end(), grammar));
 }

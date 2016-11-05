@@ -12,9 +12,8 @@ BOOST_AUTO_TEST_CASE(Add)
         "s   = a     +b"
     };
 
-    using boost::spirit::qi::phrase_parse;
-    using boost::spirit::qi::space;
+    using boost::spirit::qi::parse;
 
     for (auto& line : validLines)
-        BOOST_CHECK(phrase_parse(line.begin(), line.end(), grammar, space));
+        BOOST_CHECK(parse(line.begin(), line.end(), grammar));
 }

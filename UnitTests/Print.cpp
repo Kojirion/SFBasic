@@ -12,15 +12,15 @@ BOOST_AUTO_TEST_CASE(Print)
         "print a",
         "prInT a",
         "Print a",
-        "  Print a"
+        "  Print a",
         "Print        a"
     };
 
-    using boost::spirit::qi::phrase_parse;
+    using boost::spirit::qi::parse;
     using boost::spirit::qi::space;
 
     for (auto& line : validLines)
-        BOOST_CHECK(phrase_parse(line.begin(), line.end(), grammar, space));
+        BOOST_CHECK(parse(line.begin(), line.end(), grammar));
 
     std::vector<std::string> invalidLines = {
         "PRINTa",
@@ -29,5 +29,5 @@ BOOST_AUTO_TEST_CASE(Print)
     };
 
     for (auto& line : invalidLines)
-        BOOST_CHECK(!phrase_parse(line.begin(), line.end(), grammar, space));
+        BOOST_CHECK(!parse(line.begin(), line.end(), grammar));
 }
