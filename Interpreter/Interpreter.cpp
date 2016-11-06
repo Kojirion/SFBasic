@@ -20,18 +20,26 @@ void Interpreter::Add(std::vector<Variable> results)
 
 void Interpreter::interpretLine(std::__cxx11::string &line)
 {
-    namespace qi = boost::spirit::qi;
+    using std::placeholders::_1;
+
+    static const Grammars::Print printGrammar;
+    static const auto printAction = std::bind(&Interpreter::Print, this, _1);
+    static const auto print = printGrammar[printAction];
+
+    static const Grammars::Input inputGrammar;
+    static const auto inputAction = std::bind(&Interpreter::Input, this, _1);
+    static const auto input = inputGrammar[inputAction];
+
+    static const Grammars::Addition additionGrammar;
+    static const auto additionAction = std::bind(&Interpreter::Add, this, _1);
+    static const auto addition = additionGrammar[additionAction];
 
     auto it = line.begin();
-    using std::placeholders::_1;
-    auto r = qi::parse(it, line.end(),
-                       inputGrammar[std::bind(&Interpreter::Input, this, _1)] |
-            printGrammar[std::bind(&Interpreter::Print, this, _1)] |
-            additionGrammar[std::bind(&Interpreter::Add, this, _1)]);
 
-    if (!r){
+    auto r = boost::spirit::qi::parse(it, line.end(), input | print | addition);
+
+    if (!r)
         std::cout << "Error at \n" << std::string(it, line.end()) << std::endl;
-    }
 }
 
 void Interpreter::interpret(std::istream &is, bool displayPrompt)

@@ -4,19 +4,17 @@
 #include "../Grammars/Expression.hpp"
 #include <map>
 
-struct Interpreter
+class Interpreter
 {
+public:
+    void interpret(std::istream& is, bool displayPrompt);
+
+private:
+    void interpretLine(std::string& line);
+
     void Print(Variable v);
     void Input(Variable v);
     void Add(std::vector<Variable> results);
-
-    void interpretLine(std::string& line);
-
-    void interpret(std::istream& is, bool displayPrompt);
-
-    Grammars::Print printGrammar;
-    Grammars::Input inputGrammar;
-    Grammars::Addition additionGrammar;
 
     std::map<Variable, int> variables;
 };
