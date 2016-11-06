@@ -6,7 +6,7 @@ namespace Grammars{
 Input::Input():
     base_type(start)
 {
-    start = arbitrarySpace >> qi::no_case["INPUT "] >> arbitrarySpace >> qi::char_;
+    start = qi::no_case["INPUT "] >> qi::char_;
 }
 
 }

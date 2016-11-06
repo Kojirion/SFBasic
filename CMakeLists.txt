@@ -13,8 +13,6 @@ set(GRAMMARS
         Grammars/Expression.hpp
         Grammars/Input.cpp
         Grammars/Print.cpp
-        Grammars/ArbitrarySpace.hpp
-        Grammars/ArbitrarySpace.cpp
         Grammars/Expression.cpp
 )
 

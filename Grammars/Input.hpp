@@ -1,16 +1,14 @@
 #pragma once
 #include "Grammars.hpp"
-#include "ArbitrarySpace.hpp"
 #include "../Variable.hpp"
 
 namespace Grammars{
 
-struct Input : qi::grammar<Iterator, Variable()>
+struct Input : qi::grammar<Iterator, Variable(), qi::space_type>
 {
     Input();
 
-    ArbitrarySpace arbitrarySpace;
-    qi::rule<Iterator, Variable()> start;
+    qi::rule<Iterator, Variable(), qi::space_type> start;
 };
 
 }

@@ -33,10 +33,11 @@ struct Formatter
     void formatLine(std::string& line){
         auto it = line.begin();
         using std::placeholders::_1;
-        auto r = qi::parse(it, line.end(),
+        auto r = qi::phrase_parse(it, line.end(),
                               inputGrammar[std::bind(&Formatter::Input, this, _1)] |
                               printGrammar[std::bind(&Formatter::Print, this, _1)] |
-                              additionGrammar[std::bind(&Formatter::Add, this, _1)]);
+                              additionGrammar[std::bind(&Formatter::Add, this, _1)],
+                qi::space);
 
         if (!r){
             std::cout << "Error at \n" << std::string(it, line.end()) << std::endl;

@@ -12,8 +12,8 @@ BOOST_AUTO_TEST_CASE(Add)
         "s   = a     +b"
     };
 
-    using boost::spirit::qi::parse;
+    namespace qi = boost::spirit::qi;
 
     for (auto& line : validLines)
-        BOOST_CHECK(parse(line.begin(), line.end(), grammar));
+        BOOST_CHECK(qi::phrase_parse(line.begin(), line.end(), grammar, qi::space));
 }

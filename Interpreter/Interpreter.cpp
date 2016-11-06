@@ -36,7 +36,7 @@ void Interpreter::interpretLine(std::__cxx11::string &line)
 
     auto it = line.begin();
 
-    auto r = boost::spirit::qi::parse(it, line.end(), input | print | addition);
+    auto r = boost::spirit::qi::phrase_parse(it, line.end(), input | print | addition, qi::space);
 
     if (!r)
         std::cout << "Error at \n" << std::string(it, line.end()) << std::endl;

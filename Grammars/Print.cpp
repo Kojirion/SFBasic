@@ -6,7 +6,7 @@ namespace Grammars{
 Print::Print():
     base_type(start)
 {
-    start = arbitrarySpace >> qi::no_case["PRINT "] >> arbitrarySpace >> qi::char_;
+    start = qi::no_case["PRINT "] >> qi::char_;
 }
 
 }

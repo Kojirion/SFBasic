@@ -6,7 +6,7 @@ namespace Grammars{
 Addition::Addition():
     base_type(start)
 {
-    start = qi::char_ >> arbitrarySpace >> "=" >> arbitrarySpace >> qi::char_ >> arbitrarySpace >> "+" >> arbitrarySpace >> qi::char_;
+    start = qi::char_ >> "=" >> qi::char_ >> "+" >> qi::char_;
 }
 
 }
